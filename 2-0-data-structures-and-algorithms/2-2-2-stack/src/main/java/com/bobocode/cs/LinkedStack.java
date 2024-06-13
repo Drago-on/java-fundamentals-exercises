@@ -16,6 +16,18 @@ import com.bobocode.util.ExerciseNotCompletedException;
  */
 public class LinkedStack<T> implements Stack<T> {
 
+    private Node<T> head;
+    private int size;
+    private static class Node<T> {
+        T element;
+        Node<T> next;
+
+        Node(T element, Node<T> next) {
+            this.element = element;
+            this.next = next;
+        }
+    }
+
     /**
      * This method creates a stack of provided elements
      *
@@ -24,7 +36,11 @@ public class LinkedStack<T> implements Stack<T> {
      * @return a new stack of elements that were passed as method parameters
      */
     public static <T> LinkedStack<T> of(T... elements) {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        LinkedStack<T> stack = new LinkedStack<>();
+        for (T element : elements) {
+            stack.push(element);
+        }
+        return stack;
     }
 
     /**
@@ -35,7 +51,11 @@ public class LinkedStack<T> implements Stack<T> {
      */
     @Override
     public void push(T element) {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        if (element == null) {
+            throw new NullPointerException("Element cannot be null");
+        }
+        head = new Node<>(element, head);
+        size++;
     }
 
     /**
@@ -47,7 +67,13 @@ public class LinkedStack<T> implements Stack<T> {
      */
     @Override
     public T pop() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        if (isEmpty()) {
+            throw new EmptyStackException();
+        }
+        T element = head.element;
+        head = head.next;
+        size--;
+        return element;
     }
 
     /**
@@ -57,7 +83,7 @@ public class LinkedStack<T> implements Stack<T> {
      */
     @Override
     public int size() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        return size;
     }
 
     /**
@@ -67,7 +93,7 @@ public class LinkedStack<T> implements Stack<T> {
      */
     @Override
     public boolean isEmpty() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method;
+        return size == 0;
     }
 
 }
