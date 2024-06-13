@@ -58,6 +58,7 @@ public class LinkedStack<T> implements Stack<T> {
         size++;
     }
 
+
     /**
      * This method removes the object at the top of this stack
      * and returns that object as the value of this function.
