@@ -15,14 +15,33 @@ import com.bobocode.util.ExerciseNotCompletedException;
  * @author Ivan Virchenko
  */
 public class LinkedQueue<T> implements Queue<T> {
+    private Node<T> head;
+    private Node<T> tail;
+    private int size;
+    private static class Node<T> {
+        T value;
+        Node<T> next;
 
+        Node(T value) {
+            this.value = value;
+        }
+    }
     /**
      * Adds an element to the end of the queue.
      *
      * @param element the element to add
      */
+    @Override
     public void add(T element) {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        Node<T> newNode = new Node<>(element);
+        if (tail != null) {
+            tail.next = newNode;
+        }
+        tail = newNode;
+        if (head == null) {
+            head = tail;
+        }
+        size++;
     }
 
     /**
@@ -30,8 +49,18 @@ public class LinkedQueue<T> implements Queue<T> {
      *
      * @return an element that was retrieved from the head or null if queue is empty
      */
+    @Override
     public T poll() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        if (isEmpty()) {
+            return null;
+        }
+        T value = head.value;
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }
+        size--;
+        return value;
     }
 
     /**
@@ -39,8 +68,9 @@ public class LinkedQueue<T> implements Queue<T> {
      *
      * @return an integer value that is a size of queue
      */
+    @Override
     public int size() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        return size;
     }
 
     /**
@@ -48,7 +78,8 @@ public class LinkedQueue<T> implements Queue<T> {
      *
      * @return {@code true} if the queue is empty, returns {@code false} if it's not
      */
+    @Override
     public boolean isEmpty() {
-        throw new ExerciseNotCompletedException(); // todo: implement this method
+        return size == 0;
     }
 }
